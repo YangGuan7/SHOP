@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-Hant">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="🥫の代購｜SKZ">
+        <title>
+            🥫の代購｜團務進度
+        </title>
+        <link rel="stylesheet" href="./CSS/style.css">
+        <script src="./script/app.js" defer>
+        </script>
+    </head>
+    <body>
+        <header>
+            <a class="brand" href="#"><span class="brand-icon">🥫</span><span>罐子<span class="brand-small">の代購</span></span></a>
+            <nav aria-label="主要導覽">
+                <button class="nav active" data-view="all">團務進度</button><button class="nav" data-view="mine">我的跟團 <span>↗</span></button>
+            </nav>
+            <span class="header-note">把喜歡，好好送到你手上。</span>
+        </header>
+        <main>
+            <section class="notice">
+                <span class="notice-symbol">i</span>
+                <div>
+                    <b>團務小提醒</b>
+                    <p>
+                        官方預計出貨日不等於抵台日；如遇官方延期，會更新於各團詳情中。
+                    </p>
+                </div>
+                <span class="notice-arrow">↗</span>
+            </section>
+            <section id="all-view">
+                <section class="shipping-calendar" aria-labelledby="calendar-title">
+                    <div class="calendar-heading">
+                        <div>
+                            <div class="eyebrow">SHIPPING SCHEDULE</div>
+                            <h2 id="calendar-title">官方預計出貨日</h2>
+                        </div>
+                        <div class="calendar-controls">
+                            <button type="button" id="calendar-prev" aria-label="上一個月">‹</button>
+                            <span id="calendar-month" aria-live="polite"></span>
+                            <button type="button" id="calendar-next" aria-label="下一個月">›</button>
+                            <button type="button" id="calendar-today">本月</button>
+                        </div>
+                    </div>
+                    <p class="calendar-note">點選團名查看進度。日期為官方預計出貨日，非抵台或寄給你的日期；以下為示範資料。</p>
+                    <div class="calendar-scroll" tabindex="0" role="region" aria-label="官方預計出貨月曆，可左右捲動">
+                        <table class="calendar-table">
+                            <caption class="calendar-caption">各團官方預計出貨日期</caption>
+                            <thead><tr><th scope="col">日</th><th scope="col">一</th><th scope="col">二</th><th scope="col">三</th><th scope="col">四</th><th scope="col">五</th><th scope="col">六</th></tr></thead>
+                            <tbody id="calendar-days"></tbody>
+                        </table>
+                    </div>
+                    <p id="calendar-summary" class="calendar-note" role="status"></p>
+                </section>
+                <div class="section-heading">
+                    <div>
+                        <div class="eyebrow">
+                            FOLLOW YOUR HAPPINESS
+                        </div>
+                        <h2>
+                            團務進度<span id="total"></span>
+                        </h2>
+                    </div>
+                    <p>
+                        每一個進度，都是離見面更近一步。
+                    </p>
+                </div>
+                <div class="toolbar">
+                    <div class="tabs" role="group" aria-label="團務狀態篩選">
+                        <button class="filter selected" data-filter="all">全部團務</button><button class="filter" data-filter="waiting">等待出貨</button><button class="filter" data-filter="transit">運送中</button><button class="filter" data-filter="packing">理貨出貨</button><button class="filter" data-filter="done">已完成</button>
+                    </div>
+                    <label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜尋團名、藝人或關鍵字" aria-label="搜尋團務"></label>
+                </div>
+                <div class="list-meta">
+                    <span id="result-count"></span><label>排序 <select id="sort"><option value="updated">最近更新</option><option value="date">官方出貨日</option></select></label>
+                </div>
+                <div id="cards" class="cards">
+                </div>
+                <div class="empty" id="empty" hidden>
+                    找不到符合的團務，試試其他關鍵字吧。
+                </div>
+            </section>
+            <section id="mine-view" hidden>
+                <div class="section-heading">
+                    <div>
+                        <div class="eyebrow">
+                            MY LITTLE COLLECTION
+                        </div>
+                        <h2>
+                            我的跟團
+                        </h2>
+                    </div>
+                </div>
+                <div class="lookup">
+                    <div class="lookup-icon">
+                        ♡
+                    </div>
+                    <h3>
+                        找找你的期待
+                    </h3>
+                    <p>
+                        輸入你的專屬查詢碼，查看跟團商品與最新進度。
+                    </p>
+                    <form id="lookup-form">
+                        <label for="code">跟團查詢碼</label>
+                        <div>
+                            <input id="code" required autocomplete="off" placeholder="請輸入查詢碼"><button class="primary">查詢跟團 →</button>
+                        </div>
+                    </form>
+                    <p class="sample">
+                        這是示範功能，無真實客人資料。<button id="sample">使用示範碼 CAN2026</button>
+                    </p>
+                    <p id="lookup-message" role="status">
+                    </p>
+                </div>
+                <div id="my-orders">
+                </div>
+            </section>
+            <section class="help">
+                <div>
+                    <span>♡</span>
+                    <div>
+                        <h3>
+                            等待的日子，我們一起。
+                        </h3>
+                        <p>
+                            有任何團務問題，請透過原訂購管道聯繫罐子，並提供團名與訂單編號。
+                        </p>
+                    </div>
+                </div>
+                <button id="faq-button">查看常見問題 ↗</button>
+            </section>
+            <section id="faq" hidden>
+                <h2>
+                    常見問題
+                </h2>
+                <details>
+                    <summary>官方出貨後，多久會收到？</summary>
+                    <p>
+                        官方出貨後仍需經過海外倉、國際運送、清關與抵台理貨。實際時間請以各團更新為準。
+                    </p>
+                </details>
+                <details>
+                    <summary>為什麼同一團會分批出貨？</summary>
+                    <p>
+                        官方可能依商品或成員分批寄出。各批次狀況會寫在團務詳情內。
+                    </p>
+                </details>
+                <details>
+                    <summary>查不到我的訂單怎麼辦？</summary>
+                    <p>
+                        請先確認查詢碼。本頁目前為示範版，尚未連接真實訂單系統。
+                    </p>
+                </details>
+            </section>
+        </main>
+        <footer>
+            <a class="brand" href="#">🥫 罐子の代購</a><span>每一份喜歡，都值得被好好對待。</span><small>© 2026 GUANZI SELECT · 示範網站</small>
+        </footer>
+        <dialog id="detail">
+            <button id="close" class="close" aria-label="關閉詳情">×</button>
+            <div id="detail-body">
+            </div>
+        </dialog>
+    </body>
+</html>
