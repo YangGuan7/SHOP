@@ -1030,3 +1030,233 @@ details p {
     }
 
 }
+
+/* 我的跟團：原生頁面查詢 */
+.customer-lookup {
+    max-width: 720px;
+}
+
+.lookup .customer-fields {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+
+    label {
+        margin:0;
+        font-size:14px;
+    }
+
+    input {
+        display:block;
+        width:100%;
+        margin-top:9px;
+        font:inherit;
+    }
+}
+
+.customer-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:20px;
+
+    button {
+        cursor:pointer;
+        min-height:44px;
+    }
+
+    button:disabled {
+        opacity:.6;
+        cursor:wait;
+    }
+}
+
+.customer-clear {
+    background:#fffdf9;
+    color:#93494b;
+    border:1px solid #e8e5de;
+    border-radius:5px;
+    padding:12px 18px;
+}
+
+.lookup #lookup-message {
+    font-size:14px;
+    text-align:left;
+    color:#665d54;
+
+    &.is-error {
+        color:#a23333;
+    }
+}
+
+.customer-results {
+    max-width:720px;
+    margin:0 auto 18px;
+}
+
+.customer-group {
+    background:white;
+    border:1px solid #e8e5de;
+    border-radius:6px;
+    padding:12px 14px;
+    margin:8px 0;
+
+    h3 {
+        font-size:16px;
+        margin:0 0 7px;
+        line-height:1.4;
+        overflow-wrap:anywhere;
+    }
+}
+
+.customer-meta {
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px 12px;
+    font-size:11px;
+    color:#74695f;
+}
+
+.customer-announcement {
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+    margin:7px 0;
+    padding:6px 8px;
+    background:#faf7f2;
+    border-radius:4px;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.customer-item {
+    border-top:1px solid #e8e5de;
+    margin-top:9px;
+    padding-top:9px;
+
+    h4 {
+        margin:0 0 7px;
+        font-size:13px;
+        line-height:1.4;
+        overflow-wrap:anywhere;
+    }
+
+    dl {
+        display:grid;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        gap:7px 12px;
+        margin:0;
+    }
+
+    dl div {
+        min-width:0;
+    }
+
+    dt {
+        color:#8c8175;
+        font-size:10px;
+        line-height:1.4;
+        margin-bottom:2px;
+    }
+
+    dd {
+        margin:0;
+        font-size:12px;
+        line-height:1.4;
+        white-space:pre-wrap;
+        overflow-wrap:anywhere;
+    }
+
+    .customer-note {
+        grid-column:1 / -1;
+    }
+}
+
+@media(max-width:600px) {
+  .lookup .customer-fields {
+      grid-template-columns:1fr;
+  }
+
+  .customer-actions button {
+      flex:1;
+  }
+
+  .customer-group {
+      padding:10px;
+      margin:7px 0;
+
+      h3 {
+          font-size:14px;
+          margin-bottom:6px;
+      }
+  }
+
+  .customer-meta {
+      font-size:11px;
+      gap:4px 8px;
+  }
+
+  .customer-item {
+      margin-top:8px;
+      padding-top:8px;
+
+      h4 {
+          font-size:12px;
+          margin-bottom:6px;
+      }
+
+    //   dl {
+    //       grid-template-columns:repeat(2,minmax(0,1fr));
+    //       gap:6px 10px;
+    //   }
+  }
+
+}
+
+
+/* 團務標題展開與收合 */
+.customer-group-toggle {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+  min-height:36px;
+  padding:2px 0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  font-weight:inherit;
+  text-align:left;
+  cursor:pointer;
+  overflow-wrap:anywhere;
+}
+.customer-group-toggle::after {
+  content:'＋';
+  flex:0 0 auto;
+  color:#93494b;
+  font-size:18px;
+  font-weight:400;
+}
+.customer-group-toggle[aria-expanded="true"]::after { content:'−'; }
+.customer-group-toggle:hover { color:#93494b; }
+.customer-group-toggle:focus-visible { outline:2px solid #93494b; outline-offset:3px; border-radius:3px; }
+@media(max-width:600px) {
+  .customer-group-toggle { min-height:40px; gap:8px; }
+}
+
+
+/* 團務序號 */
+.customer-group-number {
+  flex:0 0 auto;
+  min-width:2ch;
+  color:#93494b;
+  font-size:30px;
+  font-weight:700;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.customer-group-title { flex:1; min-width:0; }
+@media(max-width:600px) {
+  .customer-group-number { font-size:25px; }
+}

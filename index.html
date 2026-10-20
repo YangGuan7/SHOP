@@ -8,8 +8,10 @@
             🥫の代購｜團務進度
         </title>
         <link rel="stylesheet" href="./CSS/style.css">
+        <script src="./script/groups.js" defer></script>
         <script src="./script/app.js" defer>
         </script>
+        <script src="./script/customer-query.js" defer></script>
     </head>
     <body>
         <header>
@@ -48,7 +50,17 @@
                     <div class="calendar-scroll" tabindex="0" role="region" aria-label="官方預計出貨月曆，可左右捲動">
                         <table class="calendar-table">
                             <caption class="calendar-caption">各團官方預計出貨日期</caption>
-                            <thead><tr><th scope="col">日</th><th scope="col">一</th><th scope="col">二</th><th scope="col">三</th><th scope="col">四</th><th scope="col">五</th><th scope="col">六</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th scope="col">日</th>
+                                    <th scope="col">一</th>
+                                    <th scope="col">二</th>
+                                    <th scope="col">三</th>
+                                    <th scope="col">四</th>
+                                    <th scope="col">五</th>
+                                    <th scope="col">六</th>
+                                </tr>
+                            </thead>
                             <tbody id="calendar-days"></tbody>
                         </table>
                     </div>
@@ -93,30 +105,23 @@
                         </h2>
                     </div>
                 </div>
-                <div class="lookup">
-                    <div class="lookup-icon">
-                        ♡
-                    </div>
-                    <h3>
-                        找找你的期待
-                    </h3>
-                    <p>
-                        輸入你的專屬查詢碼，查看跟團商品與最新進度。
-                    </p>
+                <div class="lookup customer-lookup">
+                    <div class="lookup-icon" aria-hidden="true">♡</div>
+                    <h3>找找你的期待</h3>
+                    <p>輸入登記姓名與專屬查詢碼，查看你的跟團商品與最新進度。</p>
                     <form id="lookup-form">
-                        <label for="code">跟團查詢碼</label>
-                        <div>
-                            <input id="code" required autocomplete="off" placeholder="請輸入查詢碼"><button class="primary">查詢跟團 →</button>
+                        <div class="customer-fields">
+                            <label for="customer-name">登記姓名<input id="customer-name" required maxlength="100" autocomplete="off" placeholder="請輸入登記姓名"></label>
+                            <label for="customer-code">專屬查詢碼<input id="customer-code" type="password" required maxlength="200" autocomplete="off" placeholder="請輸入團主提供的查詢碼"></label>
+                        </div>
+                        <div class="customer-actions">
+                            <button class="primary" id="customer-submit" type="submit">查詢我的團務 →</button>
+                            <button class="customer-clear" id="customer-clear" type="button">清除結果</button>
                         </div>
                     </form>
-                    <p class="sample">
-                        這是示範功能，無真實客人資料。<button id="sample">使用示範碼 CAN2026</button>
-                    </p>
-                    <p id="lookup-message" role="status">
-                    </p>
+                    <p id="lookup-message" role="status" aria-live="polite"></p>
                 </div>
-                <div id="my-orders">
-                </div>
+                <div id="my-orders" class="customer-results"></div>
             </section>
             <section class="help">
                 <div>
@@ -151,7 +156,7 @@
                 <details>
                     <summary>查不到我的訂單怎麼辦？</summary>
                     <p>
-                        請先確認查詢碼。本頁目前為示範版，尚未連接真實訂單系統。
+                        請在「我的跟團」確認登記姓名與專屬查詢碼；仍查不到時，請透過原訂購管道聯繫罐子。
                     </p>
                 </details>
             </section>
