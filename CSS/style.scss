@@ -312,7 +312,7 @@ nav {
 main {
     max-width:1200px;
     margin:auto;
-    padding:0 34px
+    padding:32px 34px 0
 }
 
 .eyebrow {
@@ -465,6 +465,8 @@ h2>span {
 }
 
 .card {
+    display:flex;
+    flex-direction:column;
     border:1px solid $line;
     border-radius:10px;
     background:#fff;
@@ -837,6 +839,34 @@ dialog::backdrop {
     font-size:11px
 }
 
+.timeline .current-stage-tag {
+    display:inline-flex;
+    align-items:center;
+    margin-left:8px;
+    padding:3px 9px;
+    border:1px solid rgba($berry, .28);
+    border-radius:999px;
+    background:rgba($berry, .09);
+    color:$berry;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.4;
+    vertical-align:middle;
+    white-space:nowrap;
+    animation:current-stage-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes current-stage-breathe {
+    0%, 100% { box-shadow:0 0 0 0 rgba($berry, .08); }
+    50% { box-shadow:0 0 0 4px rgba($berry, .06), 0 0 14px rgba($berry, .22); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .timeline .current-stage-tag {
+        animation:none;
+        box-shadow:0 0 8px rgba($berry, .15);
+    }
+}
 .order-heading {
     font-size:18px;
     margin:20px 0
@@ -930,7 +960,7 @@ details p {
 @media(max-width:600px) {
     header {
         height:76px;
-        padding:0 20px;
+        padding:24px 20px 0;
         gap:15px;
         justify-content:space-between
     }
@@ -960,7 +990,7 @@ details p {
     }
 
     main {
-        padding:0 20px
+        padding:24px 20px 0
     }
 
 
@@ -1008,18 +1038,18 @@ details p {
     }
 
     .card {
-        display:grid;
-        grid-template-columns:100px 1fr
+        display:flex;
+        flex-direction:column
     }
 
     .card-art {
-        height:100%;
-        min-height:250px
+        height:151px;
+        min-height:0
     }
 
     .art-text {
         font-size:18px;
-        writing-mode:vertical-rl
+        writing-mode:horizontal-tb
     }
 
     .art-text small {
@@ -1332,4 +1362,118 @@ details p {
 .customer-group-title { flex:1; min-width:0; }
 @media(max-width:600px) {
   .customer-group-number { font-size:25px; }
+}
+
+.card-art.has-image {
+    height:auto;
+    min-height:0;
+}
+
+.card-art.has-image:before {
+    content:none;
+}
+
+.card-art .card-image {
+    display:block;
+    width:100%;
+    height:auto;
+    object-fit:cover;
+}
+.card-themed {
+    border-color:var(--card-tint);
+
+    .card-body {
+        background:linear-gradient(180deg, var(--card-tint), #fff 65%);
+        border-top:4px solid var(--card-accent);
+        flex:1;
+    }
+
+    .artist, h3, .detail-button {
+        color:var(--card-ink);
+    }
+
+    .artist {
+        font-weight:700;
+    }
+
+    .badge.open {
+        background:var(--card-accent);
+        color:var(--card-ink);
+        border-radius:999px;
+    }
+
+    .steps i.filled {
+        background:var(--card-ink);
+    }
+
+    .card-note {
+        background:var(--card-tint);
+        border-left:3px solid var(--card-accent);
+        color:var(--card-ink);
+    }
+}
+.detail-status-tag {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 10px;
+    margin-bottom:16px;
+    border:1px solid currentColor;
+    border-radius:999px;
+    font-size:10px;
+    line-height:1.5;
+
+    &::before {
+        content:"";
+        width:5px;
+        height:5px;
+        border-radius:50%;
+        background:currentColor;
+        box-shadow:0 0 6px currentColor;
+    }
+
+    &.open { background:#fff8c9; color:#68751d; }
+    &.waiting { background:#f8f0dd; color:#8b6929; }
+    &.transit { background:#e6f2f8; color:#36738c; }
+    &.packing { background:#f8e8ef; color:#a25476; }
+    &.done { background:#e8f2e9; color:#4e7957; }
+}
+@media (max-width:600px) {
+    .card-art.has-image {
+        height:clamp(140px, 42vw, 180px);
+
+        .card-image {
+            height:100%;
+            object-fit:cover;
+        }
+    }
+}
+.notice > div {
+    min-width:0;
+}
+
+.notice-symbol, .notice-arrow {
+    flex-shrink:0;
+}
+
+@media (max-width:600px) {
+    .notice {
+        gap:10px;
+        padding:16px;
+    }
+
+    .notice-symbol {
+        margin-top:2px;
+    }
+
+    .notice b {
+        display:block;
+        line-height:1.5;
+    }
+
+    .notice p {
+        display:block;
+        margin:6px 0 0;
+        overflow-wrap:anywhere;
+    }
 }

@@ -1,8 +1,27 @@
 "use strict";
 
-const stages = ["waiting", "transit", "packing", "done"];
-const statusLabels = { waiting: "等待出貨", transit: "運送中", packing: "理貨出貨", done: "已完成" };
-const stageNotes = ["已完成訂購，等待官方出貨。", "官方已出貨，安排海外倉與國際運送。", "商品已抵台，進行核對與包裝。", "本團已完成出貨。"];
+const stages = ["open","waiting", "transit", "packing", "done"];
+const statusLabels = { 
+    open: "開團中", 
+    waiting: "等待出貨", 
+    transit: "運送中", 
+    packing: "理貨出貨", 
+    done: "已完成團務" 
+};
+const stageNotes = {
+    online: [
+        "已下單完畢，等待官方出貨。",
+        "官方已陸續出貨，經集運倉安排國際配送回台。",
+        "商品已抵台，進行商品數量核對與包裝。",
+        "本團務已全數完成出貨。"
+    ],
+    offline: [
+        "等待代購。",
+        "已完成代購商品，後續安排寄出。",
+        "準備出貨中，進行商品數量核對與包裝。",
+        "本團務已全數完成出貨。"
+    ]
+};
 const $ = (selector) => document.querySelector(selector);
 let activeFilter = "all";
 let detailTrigger = null;
@@ -88,24 +107,29 @@ function renderCards() {
         return matchesStatus && text.toLocaleLowerCase().includes(query);
     });
 
-    visibleGroups.sort((a, b) => $("#sort").value === "date"
-        ? a.date.localeCompare(b.date) || a.id.localeCompare(b.id)
-        : b.updated.localeCompare(a.updated) || a.id.localeCompare(b.id));
+    const isOpen = (group) => group.status === "open" || group.note.startsWith("開團中");
+    visibleGroups.sort((a, b) => {
+        const openFirst = Number(isOpen(b)) - Number(isOpen(a));
+        if (openFirst) return openFirst;
+        return $("#sort").value === "date"
+            ? a.date.localeCompare(b.date) || a.id.localeCompare(b.id)
+            : b.updated.localeCompare(a.updated) || a.id.localeCompare(b.id);
+    });
 
     $("#cards").innerHTML = visibleGroups.map((group) => {
         const progress = stages.indexOf(group.status);
         return `
-            <article class="card">
-                <div class="card-art" style="background:${group.colors[0]};color:${group.colors[1]}" aria-hidden="true">
-                    <span class="art-badge">${escapeHtml(group.artist)}</span>
-                    <div class="art-text">${group.art}<small>WITH LOVE, FOR YOU</small></div>
+            <article class="card card-themed" style="--card-tint:${group.colors[0]};--card-ink:${group.colors[1]};--card-accent:${group.accent || group.colors[0]}">
+                <div class="card-art${group.image ? " has-image" : ""}" style="background:${group.colors[0]};color:${group.colors[1]}" aria-hidden="true">
+                    ${group.image ? `<img class="card-image" src="${escapeHtml(group.image)}" alt="${escapeHtml(group.title)} 主視覺" loading="lazy">` : `<span class="art-badge">${escapeHtml(group.artist)}</span>
+                    <div class="art-text">${group.art}<small>WITH LOVE, FOR YOU</small></div>`}
                 </div>
                 <div class="card-body">
                     <div class="artist">${escapeHtml(group.artist)}</div>
                     <h3>${escapeHtml(group.title)}</h3>
                     <div class="status-row"><span class="badge ${group.status}">${statusLabels[group.status]}</span><span>階段 ${progress + 1} / 4</span></div>
                     <div class="steps" aria-hidden="true">${stages.map((_, index) => `<i class="${index <= progress ? "filled" : ""}"></i>`).join("")}</div>
-                    <div class="date-row"><span>官方預計出貨</span><b>${formatDate(group.date)}</b></div>
+                    <div class="date-row"><span>官方預計出貨</span><b>${escapeHtml(group.dateLabel || formatDate(group.date))}</b></div>
                     <div class="card-note">${escapeHtml(group.note)}</div>
                     <div class="card-footer"><span>更新 ${formatDate(group.updated)}</span>${detailButton(group)}</div>
                 </div>
@@ -133,17 +157,17 @@ function showDetail(id, trigger) {
     detailTrigger = trigger;
     const progress = stages.indexOf(group.status);
     $("#detail-body").innerHTML = `
-        <div class="eyebrow">${escapeHtml(group.artist)} · 示範團務</div>
+        <div class="eyebrow">${escapeHtml(group.artist)} · ${group.purchaseType === "offline" ? "線下團" : "線上團"}</div>
         <h2 id="detail-title">${escapeHtml(group.title)}</h2>
         <p class="detail-intro">${escapeHtml(group.note)}</p>
-        <span class="badge ${group.status}">${statusLabels[group.status]}</span>
-        <p class="date-row">官方預計出貨：${formatDate(group.date)}</p>
+        <span class="badge detail-status-tag ${group.status}">${statusLabels[group.status]}</span>
+        <p class="date-row">官方預計出貨：${escapeHtml(group.dateLabel || formatDate(group.date))}</p>
         <ol class="timeline">${stages.map((stage, index) => `
             <li class="${index <= progress ? "complete" : ""}">
-                <b>${statusLabels[stage]}${index === progress ? "（目前階段）" : ""}</b>
-                <small>${index <= progress ? stageNotes[index] : "尚未進入此階段，請耐心等候更新。"}</small>
+                <b>${statusLabels[stage]}${index === progress ? ' <span class="current-stage-tag">目前階段</span>' : ""}</b>
+                <small>${index <= progress ? (stageNotes[group.purchaseType] || stageNotes.online)[index] : "尚未進入此階段，請耐心等候更新。"}</small>
             </li>`).join("")}</ol>
-        <p class="detail-intro">最後更新：${formatDate(group.updated)}<br>以上為展示資料；官方出貨日不等於抵台日。</p>`;
+        <p class="detail-intro">最後更新：${formatDate(group.updated)}</p>`;
     $("#detail").showModal();
 }
 

@@ -1,13 +1,107 @@
 "use strict";
-
-// 僅放公開團務資訊，請勿放入客人資料、查詢碼或存取憑證。
-// 展示用資料；接上正式系統時，可將此處替換為 API 回傳的團務資料。
+// 僅放公開團務資訊
+// 線下團要加 purchaseType: "offline"，
+// image 填入主視覺圖片路徑，例如 "img/G008.jpg"；留空時顯示原文字封面。
 const groups = [
-    { id: "G001", artist: "SEVENTEEN", title: "SEVENTEEN 專輯與預購特典團", art: "CARAT<br>COLLECTION", status: "waiting", date: "2026-11-02", updated: "2026-10-16", note: "已完成官方訂購，等待官方預計出貨。", colors: ["#eee5e7", "#986b79"] },
-    { id: "G002", artist: "IVE", title: "IVE 官方周邊代購團", art: "DIVE<br>INTO YOU", status: "transit", date: "2026-10-12", updated: "2026-10-15", note: "商品已從海外倉寄出，等待國際運送與清關。", colors: ["#e8ecdf", "#7c8a64"] },
-    { id: "G003", artist: "Stray Kids", title: "Stray Kids 應援周邊團", art: "STAY<br>WITH ME", status: "packing", date: "2026-10-05", updated: "2026-10-16", note: "商品已抵台，依訂單順序核對數量、包裝出貨。", colors: ["#eee3d6", "#96734f"] },
-    { id: "G004", artist: "aespa", title: "aespa 專輯收藏團", art: "MY<br>UNIVERSE", status: "done", date: "2026-09-20", updated: "2026-10-10", note: "本團已完成出貨，感謝大家一起耐心等待。", colors: ["#e5e3ef", "#827497"] },
-    { id: "G005", artist: "BTS", title: "BTS 官方角色生活小物團", art: "LITTLE<br>HAPPINESS", status: "waiting", date: "2026-11-10", updated: "2026-10-14", note: "官方備貨中，實際出貨時間將依官方公告更新。", colors: ["#e9e1ee", "#92769f"] },
-    { id: "G006", artist: "TWICE", title: "TWICE 演唱會紀念周邊團", art: "ONCE<br>AGAIN", status: "transit", date: "2026-10-09", updated: "2026-10-13", note: "官方分批寄出，已到海外倉的商品安排合箱運送。", colors: ["#f3e4de", "#b18476"] }
-];
+    {
+        id: "G008",
+        artist: "Stray Kids",
+        title: "【線上】ODD&FRESH POP-UP", 
+        image: "img/G008_cover.jpg",
+        art: "ODD&amp;FRESH<br>POP-UP",
+        status: "open", 
+        date: "2026-10-28", 
+        updated: "2026-10-20",
+        note: "開團中。", 
+        colors: ["#E2F4FA", "#217A32"], 
+        accent: "#FFF332"
+    },
+    {
+        id: "G007", 
+        artist: "Stray Kids",
+        title: "【線上】THIS & THAT(MARKET SKZOO)", 
+        image: "",
+        art: "THIS &amp; THAT<br>MARKET SKZOO",
+        status: "waiting", 
+        date: "2026-10-22", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：已收單。", 
+        colors: ["#E2F4FA", "#217A32"], 
+        accent: "#FFF332"
 
+    },
+    {
+        id: "G006", 
+        artist: "Stray Kids",
+        title: "【線上】FANS年曆", 
+        image: "",
+        art: "FANS<br>CALENDAR",
+        status: "waiting", 
+        date: "2026-12-22", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：已收單。", 
+        colors: ["#eee3d6", "#96734f"]
+    },
+    {
+        id: "G005", 
+        artist: "Stray Kids",
+        title: "【線上】中國快閃店周邊", 
+        image: "",
+        art: "CHINA<br>POP-UP",
+        status: "waiting", 
+        date: "", 
+        dateLabel: "2026/10/1起+60天內", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：已收單。備註：部分兔二補。", 
+        colors: ["#f3e4de", "#b18476"]
+    },
+    {
+        id: "G004", 
+        artist: "Stray Kids",
+        title: "【線上】THIS&THAT 快閃店周邊", 
+        image: "",
+        art: "THIS&amp;THAT<br>POP-UP",
+        status: "waiting", 
+        date: "2026-11-06", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：已收單。", 
+        colors: ["#eee5e7", "#986b79"]
+    },
+    {
+        id: "G003", 
+        purchaseType: "offline", 
+        artist: "Stray Kids",
+        title: "【RUN IT】日本場周", 
+        image: "",
+        art: "RUN IT<br>JAPAN",
+        status: "transit", 
+        date: "2026/10", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：已運回。", 
+        colors: ["#e8ecdf", "#7c8a64"]
+    },
+    {
+        id: "G002", 
+        purchaseType: "offline", 
+        artist: "Stray Kids",
+        title: "【RUN IT】首爾場周", 
+        image: "",
+        art: "RUN IT<br>SEOUL",
+        status: "waiting", date: "2026-11-16", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：線上已結單；早鳥已出貨完畢。", 
+        colors: ["#eee3d6", "#96734f"]
+    },
+    {
+        id: "G001", 
+        artist: "Stray Kids",
+        title: "【線上】三麗鷗聯名", 
+        image: "",
+        art: "SANRIO<br>COLLABORATION",
+        status: "done", 
+        date: "2026/10/20&11/20", 
+        updated: "2026-10-20",
+        note: "已結單；目前進度：全數下單完畢。備註：部分兔二補。", 
+        colors: ["#f3e4de", "#b18476"]
+    }
+];
