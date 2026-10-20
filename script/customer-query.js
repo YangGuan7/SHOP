@@ -116,6 +116,7 @@
       const data = await response.json();
       if (current !== version) return;
       if (!data || typeof data.ok !== 'boolean') throw Error('FORMAT');
+      document.dispatchEvent(new CustomEvent('shop-query-result', {detail: data}));
       if (!data.ok) { status(data.message || '查詢失敗，請稍後再試。', true); return; }
       if (!Array.isArray(data.groups) || data.groups.some(g => !g || !Array.isArray(g.items))) throw Error('FORMAT');
       render(data.groups);
