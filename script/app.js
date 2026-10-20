@@ -43,6 +43,17 @@ function renderCalendar() {
     $("#calendar-month").textContent = `${calendarYear} 年 ${calendarMonth + 1} 月`;
     $(".calendar-caption").textContent = `${calendarYear} 年 ${calendarMonth + 1} 月各團官方預計出貨日期`;
     $("#calendar-days").innerHTML = rows.join("");
+    const agendaDates = [...new Set(monthGroups.map((group) => group.date))].sort();
+    $("#calendar-agenda").innerHTML = agendaDates.length
+        ? agendaDates.map((date) => {
+            const day = Number(date.slice(-2));
+            const weekday = new Date(calendarYear, calendarMonth, day).getDay();
+            return `<section class="agenda-day${date === todayKey ? " is-today" : ""}">
+                <time datetime="${date}"${date === todayKey ? ' aria-current="date"' : ""}><b>${day}</b><span>週${"日一二三四五六"[weekday]}</span></time>
+                <div class="agenda-events">${monthGroups.filter((group) => group.date === date).map((group) => `<button type="button" class="calendar-event ${group.status}" data-detail="${escapeHtml(group.id)}" aria-label="${formatDate(date)} ${escapeHtml(group.title)}，${statusLabels[group.status]}，查看詳情">${escapeHtml(group.title)}<small>${statusLabels[group.status]} · 查看詳情 ↗</small></button>`).join("")}</div>
+            </section>`;
+        }).join("")
+        : '<p class="agenda-empty">本月尚無官方預計出貨安排。</p>';
     $("#calendar-summary").textContent = monthGroups.length
         ? `本月共 ${monthGroups.length} 團預計由官方出貨；月曆顯示全部團務。`
         : "本月尚無官方預計出貨安排，可切換月份查看其他團務。";

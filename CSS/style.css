@@ -25,8 +25,8 @@
   gap: 8px;
 }
 .calendar-controls button {
-  min-width: 36px;
-  min-height: 36px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 6px 10px;
   border: 1px solid #e8e5de;
   border-radius: 6px;
@@ -116,12 +116,86 @@
   box-shadow: inset 0 0 0 1px currentColor;
 }
 
+.calendar-agenda {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .shipping-calendar {
-    padding: 16px;
+    min-width: 0;
+    padding: 16px 12px;
+  }
+  .calendar-heading {
+    gap: 14px;
+  }
+  .calendar-heading h2 {
+    font-size: 20px;
   }
   .calendar-controls {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px auto;
+    width: 100%;
     gap: 6px;
+  }
+  .calendar-controls span {
+    min-width: 0;
+  }
+  .calendar-scroll {
+    display: none;
+  }
+  .calendar-agenda {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .agenda-day {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+  .agenda-day time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 2px;
+    border-radius: 8px;
+    background: #f1eee6;
+  }
+  .agenda-day time b {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .agenda-day time span {
+    margin-top: 4px;
+    font-size: 11px;
+  }
+  .agenda-day.is-today time {
+    background: #93494b;
+    color: white;
+  }
+  .agenda-events {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+  .agenda-events .calendar-event {
+    min-height: 56px;
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .agenda-events .calendar-event small {
+    font-size: 11px;
+  }
+  .agenda-empty {
+    margin: 0;
+    padding: 20px 12px;
+    text-align: center;
+    color: #858071;
+    line-height: 1.8;
+    background: #faf9f6;
+    border-radius: 8px;
   }
 }
 * {
@@ -1129,52 +1203,74 @@ details p {
     font-size: 12px;
     margin-bottom: 6px;
   }
-}/*# sourceMappingURL=style.css.map */
-
+}
 /* 團務標題展開與收合 */
 .customer-group-toggle {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  width:100%;
-  min-height:36px;
-  padding:2px 0;
-  border:0;
-  background:transparent;
-  color:inherit;
-  font:inherit;
-  font-weight:inherit;
-  text-align:left;
-  cursor:pointer;
-  overflow-wrap:anywhere;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 36px;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
 }
+
 .customer-group-toggle::after {
-  content:'＋';
-  flex:0 0 auto;
-  color:#93494b;
-  font-size:18px;
-  font-weight:400;
-}
-.customer-group-toggle[aria-expanded="true"]::after { content:'−'; }
-.customer-group-toggle:hover { color:#93494b; }
-.customer-group-toggle:focus-visible { outline:2px solid #93494b; outline-offset:3px; border-radius:3px; }
-@media(max-width:600px) {
-  .customer-group-toggle { min-height:40px; gap:8px; }
+  content: "＋";
+  flex: 0 0 auto;
+  color: #93494b;
+  font-size: 18px;
+  font-weight: 400;
 }
 
+.customer-group-toggle[aria-expanded=true]::after {
+  content: "−";
+}
 
+.customer-group-toggle:hover {
+  color: #93494b;
+}
+
+.customer-group-toggle:focus-visible {
+  outline: 2px solid #93494b;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  .customer-group-toggle {
+    min-height: 40px;
+    gap: 8px;
+  }
+}
 /* 團務序號 */
 .customer-group-number {
-  flex:0 0 auto;
-  min-width:2ch;
-  color:#93494b;
-  font-size:30px;
-  font-weight:700;
-  line-height:1;
-  font-variant-numeric:tabular-nums;
+  flex: 0 0 auto;
+  min-width: 2ch;
+  color: #93494b;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
-.customer-group-title { flex:1; min-width:0; }
-@media(max-width:600px) {
-  .customer-group-number { font-size:25px; }
+
+.customer-group-title {
+  flex: 1;
+  min-width: 0;
 }
+
+@media (max-width: 600px) {
+  .customer-group-number {
+    font-size: 25px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

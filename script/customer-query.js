@@ -3,7 +3,7 @@
   const API_URL = 'https://script.google.com/macros/s/AKfycbz1x8vZtVcSbfJqNpeR38cpEebcA4iVWGDvZzpz3jxs22B6VbM16Nhq0hGefJGQQOS3/exec';
   const form = document.getElementById('lookup-form');
   const nameInput = document.getElementById('customer-name');
-  const codeInput = document.getElementById('customer-code');
+  const facebookInput = document.getElementById('customer-facebook');
   const submit = document.getElementById('customer-submit');
   const clear = document.getElementById('customer-clear');
   const message = document.getElementById('lookup-message');
@@ -88,16 +88,16 @@
   clear.addEventListener('click', () => {
     cancel(); form.reset(); nameInput.focus();
   });
-  [nameInput, codeInput].forEach(input => input.addEventListener('input', cancel));
-  window.addEventListener('pagehide', () => { cancel(); codeInput.value = ''; });
+  [nameInput, facebookInput].forEach(input => input.addEventListener('input', cancel));
+  window.addEventListener('pagehide', () => { cancel(); facebookInput.value = ''; });
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!form.reportValidity()) return;
     cancel();
     const current = version;
     const name = nameInput.value.trim();
-    const code = codeInput.value.trim();
-    if (!name || !code) { status('請輸入登記姓名與專屬查詢碼。', true); return; }
+    const facebookName = facebookInput.value.trim();
+    if (!name || !facebookName) { status('請輸入登記姓名與臉書名稱。', true); return; }
     controller = new AbortController();
     const activeController = controller;
     const timeout = setTimeout(() => activeController.abort(), 45000);
@@ -105,11 +105,11 @@
     form.setAttribute('aria-busy', 'true');
     status('正在查詢，請稍候…');
     try {
-      // 使用 POST 內文傳送；不將姓名或查詢碼寫入網址、紀錄或本機儲存。
+      // 使用 POST 內文傳送；不將姓名或臉書名稱寫入網址、紀錄或本機儲存。
       // 不加入自訂標頭，避免觸發 Apps Script 不支援的 OPTIONS 預檢。
       const response = await fetch(API_URL, {
         method: 'POST', mode: 'cors', credentials: 'omit', redirect: 'follow',
-        body: new URLSearchParams({action:'lookup', name, code}),
+        body: new URLSearchParams({action:'lookup', name, facebookName}),
         signal: activeController.signal
       });
       if (!response.ok) throw Error('HTTP');
@@ -129,7 +129,7 @@
     } finally {
       clearTimeout(timeout);
       if (current === version) {
-        codeInput.value = '';
+        facebookInput.value = '';
         submit.disabled = false;
         form.removeAttribute('aria-busy');
         controller = null;

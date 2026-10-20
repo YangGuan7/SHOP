@@ -27,8 +27,8 @@ $line: #e8e5de;
     gap: 8px;
 
     button {
-        min-width: 36px;
-        min-height: 36px;
+        min-width: 44px;
+        min-height: 44px;
         padding: 6px 10px;
         border: 1px solid $line;
         border-radius: 6px;
@@ -122,9 +122,82 @@ $line: #e8e5de;
     &:hover { box-shadow: inset 0 0 0 1px currentColor; }
 }
 
+.calendar-agenda { display: none; }
+
 @media (max-width: 600px) {
-    .shipping-calendar { padding: 16px; }
-    .calendar-controls { gap: 6px; }
+    .shipping-calendar {
+        min-width: 0;
+        padding: 16px 12px;
+    }
+
+    .calendar-heading {
+        gap: 14px;
+
+        h2 { font-size: 20px; }
+    }
+
+    .calendar-controls {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) 44px auto;
+        width: 100%;
+        gap: 6px;
+
+        span { min-width: 0; }
+    }
+
+    .calendar-scroll { display: none; }
+
+    .calendar-agenda {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+    }
+
+    .agenda-day {
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr);
+        align-items: start;
+        gap: 10px;
+
+        time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 2px;
+            border-radius: 8px;
+            background: #f1eee6;
+
+            b { font-size: 20px; line-height: 1.2; }
+            span { margin-top: 4px; font-size: 11px; }
+        }
+
+        &.is-today time { background: $berry; color: white; }
+    }
+
+    .agenda-events {
+        display: grid;
+        gap: 8px;
+        min-width: 0;
+
+        .calendar-event {
+            min-height: 56px;
+            margin: 0;
+            padding: 10px 12px;
+            font-size: 13px;
+
+            small { font-size: 11px; }
+        }
+    }
+
+    .agenda-empty {
+        margin: 0;
+        padding: 20px 12px;
+        text-align: center;
+        color: #858071;
+        line-height: 1.8;
+        background: $paper;
+        border-radius: 8px;
+    }
 }
 
 * {

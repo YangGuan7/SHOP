@@ -64,6 +64,7 @@
                             <tbody id="calendar-days"></tbody>
                         </table>
                     </div>
+                    <div id="calendar-agenda" class="calendar-agenda" role="region" aria-label="當月官方預計出貨清單"></div>
                     <p id="calendar-summary" class="calendar-note" role="status"></p>
                 </section>
                 <div class="section-heading">
@@ -108,11 +109,11 @@
                 <div class="lookup customer-lookup">
                     <div class="lookup-icon" aria-hidden="true">♡</div>
                     <h3>找找你的期待</h3>
-                    <p>輸入登記姓名與專屬查詢碼，查看你的跟團商品與最新進度。</p>
+                    <p>輸入登記姓名與臉書名稱，查看你的跟團商品與最新進度。</p>
                     <form id="lookup-form">
                         <div class="customer-fields">
                             <label for="customer-name">登記姓名<input id="customer-name" required maxlength="100" autocomplete="off" placeholder="請輸入登記姓名"></label>
-                            <label for="customer-code">專屬查詢碼<input id="customer-code" type="password" required maxlength="200" autocomplete="off" placeholder="請輸入團主提供的查詢碼"></label>
+                            <label for="customer-facebook">臉書名稱<input id="customer-facebook" type="text" required maxlength="100" autocomplete="off" placeholder="請輸入登記的臉書名稱"></label>
                         </div>
                         <div class="customer-actions">
                             <button class="primary" id="customer-submit" type="submit">查詢我的團務 →</button>
@@ -125,10 +126,10 @@
             </section>
             <section class="help">
                 <div>
-                    <span>♡</span>
+                    <span>⭐</span>
                     <div>
                         <h3>
-                            等待的日子，我們一起。
+                            𝗌𝗍𝗋𝖺𝗒 𝗄𝗂𝖽𝗌 𝖾𝗏𝖾𝗋𝗒𝗐𝗁𝖾𝗋𝖾 𝖺𝗅𝗅 𝖺𝗋𝗈𝗎𝗇𝖽 𝗍𝗁𝖾 𝗐𝗈𝗋𝗅𝖽.
                         </h3>
                         <p>
                             有任何團務問題，請透過原訂購管道聯繫罐子，並提供團名與訂單編號。
@@ -144,25 +145,27 @@
                 <details>
                     <summary>官方出貨後，多久會收到？</summary>
                     <p>
-                        官方出貨後仍需經過海外倉、國際運送、清關與抵台理貨。實際時間請以各團更新為準。
+                        官網FANS依經驗是半個月至一個月抵達我這邊，官方出貨後仍需經集運倉、申請打包運回、國際運送、清關與抵台理貨。實際時間請以社群文字公告更新為準。
                     </p>
                 </details>
                 <details>
                     <summary>為什麼同一團會分批出貨？</summary>
                     <p>
-                        官方可能依商品或成員分批寄出。各批次狀況會寫在團務詳情內。
+                        會依商品體積大小或下單順序分批寄出。各批次狀況會寫在社群團務公告內。
                     </p>
                 </details>
                 <details>
                     <summary>查不到我的訂單怎麼辦？</summary>
                     <p>
-                        請在「我的跟團」確認登記姓名與專屬查詢碼；仍查不到時，請透過原訂購管道聯繫罐子。
+                        請在「我的跟團」確認登記姓名與臉書名稱；仍查不到時，請透過官方LINE聯繫罐子。
                     </p>
                 </details>
             </section>
         </main>
         <footer>
-            <a class="brand" href="#">🥫 罐子の代購</a><span>每一份喜歡，都值得被好好對待。</span><small>© 2026 GUANZI SELECT · 示範網站</small>
+            <a class="brand" href="#">🥫 罐子の代購</a>
+            <span>LINE社群 @978snomy</span>
+            <small>© 2026 SKZ MARKET</small>
         </footer>
         <dialog id="detail">
             <button id="close" class="close" aria-label="關閉詳情">×</button>
